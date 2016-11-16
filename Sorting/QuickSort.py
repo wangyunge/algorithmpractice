@@ -1,7 +1,7 @@
 '''
 QuickSort
 '''
-class QuickSorter:
+class QuickSorter1:
     def sort(self,nums):
         self.nums = nums
         L = 0
@@ -30,9 +30,30 @@ class QuickSorter:
             left -= 1
             self.nums[start],self.nums[left] = self.nums[left],self.nums[start]
         return left
+class QuickSorter2(object):
+    def sort(self,arr):
+        self.arr = arr
+        left = 0
+        right = len(arr)-1
+        self.sortHelper(left,right)
+        return self.arr
+    def sortHelper(self,left,right):
+        if left < right:
+            pivot = self.partition(left,right)
+            self.sortHelper(left,pivot-1)
+            self.sortHelper(pivot+1,right)
+    def partition(self,left,right):
+        povit = left
+        for i in xrange(left+1,right+1):
+            if self.arr[i] <= self.arr[left]:
+                povit += 1
+                self.arr[i],self.arr[povit] = self.arr[povit],self.arr[i]
+        self.arr[left],self.arr[povit] = self.arr[povit],self.arr[left]
+        return povit
+
 def main():
     test = [2,3,1,7,5,3,2]
-    sol = QuickSorter()
+    sol = QuickSorter2()
     res = sol.sort(test)
     print res
 if __name__ == '__main__':
