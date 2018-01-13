@@ -1,0 +1,45 @@
+'''
+Flatten a binary tree to a fake "linked list" in pre-order traversal.
+
+Here we use the right pointer in TreeNode as the next pointer in ListNode.
+
+ Notice
+
+Don't forget to mark the left child of each node to null. Or you will get Time Limit Exceeded or Memory Limit Exceeded.
+
+Have you met this question in a real interview? Yes
+Example
+              1
+               \
+     1          2
+    / \          \
+   2   5    =>    3
+  / \   \          \
+ 3   4   6          4
+                     \
+                      5
+'''
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        this.val = val
+        this.left, this.right = None, None
+"""
+class Solution:
+    # @param root: a TreeNode, the root of the binary tree
+    # @return: nothing
+    def flatten(self, root):
+        helper = TreeNode(0)
+        self.index = helper
+        self.DFS(root)
+        return helper.right
+    def DFS(self,root):
+        if root:
+            self.index.right = root
+            self.index.left = None
+            self.index = root
+            right = root.right
+            left = root.left
+            self.DFS(left)
+            self.DFS(right)
