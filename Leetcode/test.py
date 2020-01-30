@@ -27,7 +27,7 @@ def intToString(input):
     return str(input)
 
 def main():
-    nums = [3,0,6,1,5]
+    nums = [2,0,6,1,5]
 
     ret = Solution().hIndex(nums)
 
