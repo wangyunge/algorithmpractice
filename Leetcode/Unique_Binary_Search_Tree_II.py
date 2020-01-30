@@ -42,3 +42,5 @@ class Solution(object):
             parent.right = TreeNode(num)
         else:
             parent.left = TreeNode(num)
+
+            

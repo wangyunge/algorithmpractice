@@ -44,3 +44,18 @@ class Solution:
         for i in xrange(len(binary)):
             res += binary[i]*pow(2,i)
         return res
+
+class Solution2:
+    # @param {int} n a number
+    # @return {int[]} Gray code
+    def grayCode(self, n):
+        if n == 0:
+            return 0
+        elif n == 1:
+            return [0, 1]
+        else:
+            last_res = self.gray(n-1)
+            last_reverse = last_res[::-1]
+        for ind in range(len(last_res)) :
+            last_res[ind] = 
+        

@@ -1,26 +1,22 @@
 class Solution(object):
-    def rob(self, nums):
+    def hIndex(self, citations):
         """
-        :type nums: List[int]
+        :type citations: List[int]
         :rtype: int
         """
-        if not nums:
-            return
-        if len(nums) <= 2:
-            return max(nums)
-        DA = [None] * len(nums)
-        DB = [None] * len(nums)
-        DA[0] = nums[0]
-        DA[1] = max(nums[0], nums[1])
-        for index in xrange(2, len(nums)):
-            DA[index] = max(DA[index-1], DA[index-2] + nums[index])
+        N = len(citations)
+        aux = [0] * (N + 1)
+        for ci in citations:
+            if ci >= N:
+                aux[-1] += 1
+            else:
+                aux[ci] += 1
+        cul = 0
+        for i in range(N+1)[::-1]:
+            cul += aux[i]
+            if cul >= i:
+                return i
 
-        DB[0] = 0
-        DB[1] = nums[1]
-        for index in xrange(2, len(nums)):
-            DB[index] = max(DB[index-1], DB[index-2] + nums[index])
-
-        return max(DA[-2], DB[-1])
 
 def stringToIntegerList(input):
     return json.loads(input)
@@ -31,9 +27,9 @@ def intToString(input):
     return str(input)
 
 def main():
-    nums = [1,2,3,1]
+    nums = [3,0,6,1,5]
 
-    ret = Solution().rob(nums)
+    ret = Solution().hIndex(nums)
 
     out = intToString(ret)
 

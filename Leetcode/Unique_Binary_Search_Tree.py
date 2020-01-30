@@ -14,9 +14,17 @@ Subscribe to see which companies asked this question
 Show Tags
 Show Similar Problems
 '''
+
 class Solution(object):
     def numTrees(self, n):
         """
         :type n: int
         :rtype: int
         """
+        DP = [1, 1]
+        for m in range(2, n+1):
+            res_m = 0
+            for mid in range(m):
+                res_m += DP[mid] * DP[m-mid-1]  
+            DP.append(res_m)
+        return DP[-1]
