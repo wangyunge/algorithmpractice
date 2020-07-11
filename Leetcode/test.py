@@ -1,21 +1,21 @@
-class Solution(object):
-    def hIndex(self, citations):
-        """
-        :type citations: List[int]
-        :rtype: int
-        """
-        N = len(citations)
-        aux = [0] * (N + 1)
-        for ci in citations:
-            if ci >= N:
-                aux[-1] += 1
-            else:
-                aux[ci] += 1
-        cul = 0
-        for i in range(N+1)[::-1]:
-            cul += aux[i]
-            if cul >= i:
-                return i
+class Solution:
+    """
+    1. Difference to Find the Duplicate Number is that we can change the number in place.
+    """
+    def findDuplicates(self, nums) :
+        res = []
+        for pi in range(len(nums)):
+            if nums[pi] < 0: 
+                continue
+            idx = nums[pi] - 1
+            while idx >= 0 and idx != nums[idx] -1: 
+                ne_idx = nums[idx] -1
+                nums[idx] = -(idx + 1)
+                if nums[ne_idx] < 0:
+                    res.append(-nums[ne_idx])
+                    break
+                idx = ne_idx
+        return res
 
 
 def stringToIntegerList(input):
@@ -27,13 +27,13 @@ def intToString(input):
     return str(input)
 
 def main():
-    nums = [2,0,6,1,5]
+    nums = [4,3,2,7,8,2,3,1]
 
-    ret = Solution().hIndex(nums)
+    ret = Solution().findDuplicates(nums)
 
     out = intToString(ret)
 
-    print out
+    print(out)
 
 if __name__ == '__main__':
     main()    

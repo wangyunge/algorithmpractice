@@ -43,6 +43,7 @@ class Solution(object):
         self.res.append(root.val)
         if root.right:
             self.Travel(root.right)
+
     def inorderTraversal(self, root):
         if not root:
             return []
@@ -63,3 +64,16 @@ class Solution(object):
                 res.append(root.val)
             root = stack.pop()
         return res
+
+    def inorderTraversal(self, root):
+        res = []
+        stack = []
+        while root is not None or len(stack) > 0:
+            if root is not None:
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                res.append(root.val)
+                root = root.right
+        return res 

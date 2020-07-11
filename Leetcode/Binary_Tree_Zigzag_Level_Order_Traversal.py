@@ -54,3 +54,25 @@ class Solution(object):
         res.append(pack)
         return res
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+import Queue
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        stack = []
+        stack.append(root)
+        res = []
+        cur = 0
+        while stack:
+            if stack[-1][1] == cur:
+                node, flag = stack.pop()
+                if cur == 0:
+                    if node.left:
+                        stack.append((node.left, ))
+
+
+        
