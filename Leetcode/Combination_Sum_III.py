@@ -39,3 +39,8 @@ class Solution(object):
             for i in xrange(base[-1] + 1, 10):
                 if i <= n:
                     self.dfs(base + [i], k-1, n-i )
+
+"""
+Note:
+Avoid circles :
+`for i in xrange(base[-1] + 1, 10):`

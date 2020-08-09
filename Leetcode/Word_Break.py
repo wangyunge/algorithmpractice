@@ -19,5 +19,8 @@ class Solution(object):
         for i in xrange(len(s)+1):
             for j in xrange(i):
                 if DP[j] and s[j:i] in wordDict:
-                    DP[i] = True 
+                    DP[i] = True
         return DP[-1]
+"""
+Note: Add a header to make the recurrence equation valid.
+"""

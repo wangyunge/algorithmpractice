@@ -23,7 +23,7 @@ class QuickSorter1:
             while self.nums[right] > rivet and left < right:
                 right -= 1
             self.nums[left],self.nums[right] = self.nums[right],self.nums[left]
-        
+
         if self.nums[start] >= self.nums[left]:
             self.nums[start],self.nums[left] = self.nums[left],self.nums[start]
         else:
@@ -44,9 +44,9 @@ class QuickSorter2(object):
             self.sortHelper(pivot+1,right)
     def partition(self,left,right):
         povit = left
-        for i in xrange(left+1,right+1):
+        for i in xrange(left+1,right+1):         # left+1 to skip the povit
             if self.arr[i] <= self.arr[left]:
-                povit += 1
+                povit += 1                       # move first to keep povit position satisfy condition
                 self.arr[i],self.arr[povit] = self.arr[povit],self.arr[i]
         self.arr[left],self.arr[povit] = self.arr[povit],self.arr[left]
         return povit

@@ -1,21 +1,29 @@
+from math import floor
+import copy
 class Solution:
-    """
-    1. Difference to Find the Duplicate Number is that we can change the number in place.
-    """
-    def findDuplicates(self, nums) :
-        res = []
-        for pi in range(len(nums)):
-            if nums[pi] < 0: 
-                continue
-            idx = nums[pi] - 1
-            while idx >= 0 and idx != nums[idx] -1: 
-                ne_idx = nums[idx] -1
-                nums[idx] = -(idx + 1)
-                if nums[ne_idx] < 0:
-                    res.append(-nums[ne_idx])
-                    break
-                idx = ne_idx
-        return res
+    def minEatingSpeed(self, piles, H) :
+        self.H = H
+        self.piles = piles
+        left = 0 
+        right = max(piles)
+        while left < right:
+            mid = floor((left + right)/2) 
+            if self._eat(mid):
+                right = mid - 1
+            else:
+                left = mid + 1
+        return left if self._eat(left) else left + 1
+
+    def _eat(self, k):
+        h = 0
+        plate = 0
+        deep_piles = copy.deepcopy(self.piles)
+        while deep_piles or plate > 0:
+            if plate == 0:
+                plate = deep_piles.pop()
+            plate = max(0, plate - k)
+            h += 1
+        return self.H >= h
 
 
 def stringToIntegerList(input):
@@ -27,9 +35,9 @@ def intToString(input):
     return str(input)
 
 def main():
-    nums = [4,3,2,7,8,2,3,1]
+    nums = [70]
 
-    ret = Solution().findDuplicates(nums)
+    ret = Solution().minEatingSpeed(nums, 312884469)
 
     out = intToString(ret)
 

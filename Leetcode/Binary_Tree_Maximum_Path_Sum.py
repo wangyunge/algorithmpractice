@@ -39,3 +39,23 @@ class Solution(object):
             right_val = root.right.val if root.right else 0
             self.Max = max(self.Max,root.val + left_val + right_val,left_val + root.val,right_val + root.val,root.val)
             root.val  = max(root.val,left_val + root.val,right_val + root.val)
+
+class Solution(object):
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = float('-inf')
+
+        def _dfs(root):
+            if not root:
+                return 0
+            left_depth = max(0, _dfs(root.left))
+            right_depth = max(0, _dfs(root.right))
+            self.res = max(self.res, left_depth + right_depth + root.val )
+
+            return max(left_depth, right_depth) + root.val
+        _dfs(root)
+        return self.res
+

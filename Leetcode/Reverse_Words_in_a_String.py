@@ -30,3 +30,23 @@ class Solution(object):
             res += word + ' '
         res = res.strip()
         return res
+
+
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        spare_spaces = 1 if s[0] == ' ' else 0
+        if s[-1] == ' ':
+            spare_spaces += 1
+        for idx in range(1, len(s)):
+            if s[idx] == ' ' and s[idx-1] == ' ':
+                spare_spaces += 1
+        end  = len(s) - spare_spaces
+        left = 0
+        store_right = end - 1
+        right = len(s) - 1
+        while :
+            pass
