@@ -30,7 +30,9 @@ class Solution(object):
         """
         if len(nums1) < len(nums2):
             nums1, nums2 = nums2, nums1
-        L = len(nums1) + len(nums2)
+        k = (len(nums1) + len(nums2)) // 2
+        odds = (len(nums1) + len(nums2)) % 2
+
         left = 0 
         right = (len(nums1) + len(nums2)) // 2 - 1
         while left <= right:

@@ -20,12 +20,17 @@ You must use only standard operations of a stack -- which means only push to top
 Depending on your language, stack may not be supported natively. You may simulate a stack by using a list or deque (double-ended queue), as long as you use only standard operations of a stack.
 You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
 """
+
+
+
 class MyQueue(object):
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
+        self.stack_1 = []
+        self.stack_2 = []
         
 
     def push(self, x):
@@ -34,6 +39,8 @@ class MyQueue(object):
         :type x: int
         :rtype: void
         """
+        self.stack_1.append(x)
+
         
 
     def pop(self):
@@ -41,13 +48,24 @@ class MyQueue(object):
         Removes the element from in front of queue and returns that element.
         :rtype: int
         """
-        
+        if self.stack_2:
+            return self.stack_2.pop()
+        while self.stack_1:
+            item = self.stack_1.pop()
+            self.stack_2.append(item)
+        return self.stack_2.pop()        
 
     def peek(self):
         """
         Get the front element.
         :rtype: int
         """
+        if self.stack_2:
+            return self.stack_2[-1]
+        while self.stack_1:
+            item = self.stack_1.pop()
+            self.stack_2.append(item)
+        return self.stack_2[-1]
         
 
     def empty(self):
@@ -55,6 +73,7 @@ class MyQueue(object):
         Returns whether the queue is empty.
         :rtype: bool
         """
+        return not(self.stack_1 or self.stack_2)
         
 
 

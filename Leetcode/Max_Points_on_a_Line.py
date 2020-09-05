@@ -14,18 +14,42 @@ class Solution(object):
         :type points: List[Point]
         :rtype: int
         """
-        def slop_cal(a,b):
-            if a.y==b.y and a.x==b.x:
-                return 'root'
-            slop = (a.y-b.y)/(a.x-b.x) if a.x != b.x else float('inf')
-            return slop
-        for idx1 in range(len(points)):
-            slop_table = {'root':0}
-            for idx2 in range(idx1, len(points)):
-                slop = slop_cal(points[idx1], points[idx2])
-                slop_table.setdefaul(slop, 0)
-                slop_table[slop] += 1
-            res = max(res, max(slop_table.values()) + slop_table['root'])
+        def _gcd(a, b):
+            """
+            Greatest common divisor
+            """
+            if b == 0:
+                return a 
+            return _gcd(b, a%b) 
+
+        def _slop(i, j):
+            if i.x==j.x:
+                return 'ver'
+            else:
+                y_diff = i.y-j.y
+                x_diff = i.x-j.x
+
+                slop = _gcd(y_diff, x_diff) 
+                return str(slop)
+             
+        for i in range(len(points)):
+            table = {}
+            dupl = 1
+            for j in range(i, len(points)):
+                if i.x==j.x and i.y==j.y:
+                    dupl += 1
+                else:
+                    slop = _slop(i, j)
+                    table.setdefault(slop, 0)
+                    table[slop] += 1
+                res = max(res, max(table.values())+dupl+1)
+        return res
+
+
+
+
+
+
 
 
 

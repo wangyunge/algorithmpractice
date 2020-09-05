@@ -32,19 +32,20 @@ class Solution(object):
         :rtype: str
         """
         if not num:
-            return 0
-        if k >= len(num):
-            return 0
-        str_num = str(num)
-        table = {} 
-        for idx in range(len(str_num)):
-            reward = int(str_num[:idx]+str_num[idx+1:])
-            table[idx] = reward
-        remove_idx =[x[0] for x in sorted(table.items(), key=lambda x: x[1], reverse=False)[:k]]
-        res = []
-        for idx in range(len(str_num)):
-            if idx not in remove_idx:
-                res.append(str_num[idx])
-        idx = 0
-        while res[idx] == '0':
-            idx += 1
+            return ''
+        stack = ['0']
+        num = num + '0'
+        for char in num:
+            while char < stack[-1] and k > 0 and stack:
+                stack.pop()
+                k -= 1
+            stack.append(char)
+        stack = stack[:-1]
+        for idx in range(len(stack)):
+            if stack[idx] > '0':
+                break
+        return ''.join(stack[idx:])
+
+
+
+

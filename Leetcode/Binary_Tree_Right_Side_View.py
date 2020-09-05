@@ -1,4 +1,4 @@
-'''
+`'''
 Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
 
 For example:
@@ -16,21 +16,34 @@ You should return [1, 3, 4].
 #         self.val = x
 #         self.left = None
 #         self.right = None
-import Queue
+
+
+from collections import deque
 class Solution(object):
     def rightSideView(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
         """
+        
         if not root:
             return []
         res = []
-        self.bfsList = []
-        self.BFS(root)
-        for stack in self.bfsList:
-            res.append(stack[0])
+        q = deque()
+        q.append((root, 1))
+        head = None
+        last_level = 0
+        while q :
+            head, level = q.popleft()
+            if last_level != level:
+                res.append(head.val)
+            last_level = level
+            if head.right:
+                q.append((head.right, level+1))
+            if head.left:
+                q.append((head.left, level+1))
         return res
+
     def BFS(self,root):
         stack = []
         queue = Queue.Queue()

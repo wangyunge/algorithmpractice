@@ -16,6 +16,13 @@ Show Similar Problems
 #         self.left = None
 #         self.right = None
 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution(object):
     def buildTree(self, preorder, inorder):
         """
@@ -23,31 +30,34 @@ class Solution(object):
         :type inorder: List[int]
         :rtype: TreeNode
         """
-        if not preorder:
-            return None
-        root_val = preorder[0]
-        for idx,val in enumerate(inorder):
-            if val == root_val:
-                left_inorder = inorder[:idx]
-                right_inorder = inorder[idx+1:]
-                break
-        left_preorder = preorder
-        right_preorder = [] 
-        for idx,val in enumerate(preorder):
-            if val in right_inorder:
-                left_preorder = preorder[1:idx]
-                right_preorder = preorder[idx:]
-                break
-        
-        
-        root = TreeNode(root_val)
-        root.left = self.buildTree(left_preorder,left_inorder)
-        root.right = self.buildTree(right_preorder,right_inorder)
+
+        root = _buildTree(0, 0, len(inorder)) 
+
+
+        def _buildTree(pre_left, in_left, in_right):
+
+            for pre_idx in raneg(pre_left, len(preorder)):   # Building the tree in preorder can gauarntee the first element in preorder is root
+                for in_idx in range(in_left, in_right):
+                    if preorder[pre_idx] == inorder[in_idx] :
+                        root = TreeNode(preorder[pre_idx])
+                        root.left = _buildTree(pre_idx+1, in_left, in_idx)
+                        root.right = _buildTree(pre_idx+1, in_idx+1, in_right)
+                        break
+            return root
+
+"""
+Approach #1 
+Recursion can make every head in preorder is head
+""" 
+def buildTree(self, preorder, inorder):
+    if inorder:
+        ind = inorder.index(preorder.pop(0))
+        root = TreeNode(inorder[ind])
+        root.left = self.buildTree(preorder, inorder[0:ind])
+        root.right = self.buildTree(preorder, inorder[ind+1:])
         return root
-# def buildTree(self, preorder, inorder):
-#     if inorder:
-#         ind = inorder.index(preorder.pop(0))
-#         root = TreeNode(inorder[ind])
-#         root.left = self.buildTree(preorder, inorder[0:ind])
-#         root.right = self.buildTree(preorder, inorder[ind+1:])
-#         return root
+
+"""
+Approach #2
+The position of right child in preordr can be calculated by length of left children in inorder
+""" 
